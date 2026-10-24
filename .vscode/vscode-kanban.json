@@ -1,0 +1,33 @@
+{
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "shahwaiz-kareem"
+      },
+      "category": "Todos",
+      "creation_time": "2025-01-03T13:47:31.116Z",
+      "description": {
+        "content": "Get the visit sources from chatgpt",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "prio": 1,
+      "references": [],
+      "title": "Get the visit sources from chatgpt"
+    },
+    {
+      "assignedTo": {
+        "name": "shahwaiz-kareem"
+      },
+      "category": "Todos",
+      "creation_time": "2025-01-03T16:03:54.128Z",
+      "id": "2",
+      "prio": 0,
+      "references": [],
+      "title": "Check if user is onboarded, when endpoint includes \"dashboard\""
+    }
+  ],
+  "in-progress": [],
+  "testing": [],
+  "done": []
+}

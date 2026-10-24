@@ -1,0 +1,29 @@
+# prettier-ignore
+
+Account
+  +Tabs
+    -Profile
+      +Form
+        -name
+        -proficiencyLevel
+        -goals
+        -age-range
+    -security
+      -Section (change Email)
+        +Form
+          -current Email,
+        +(Show warning to verify email, if verified change signupsource to Email in the User model)
+      -Section (change Password)
+        +Form
+          -current password
+          -new password
+          -confirm new password
+    -subscription
+Settings
+    -personlization
+      +Form
+        -theme
+        -default character
+        -default voice
+        -default pitch
+        -native language

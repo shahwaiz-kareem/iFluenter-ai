@@ -1,0 +1,57 @@
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import passport from "passport";
+import UserModel from "../models/user.model.js";
+import generateTokens from "../utils/user/generateTokens.js";
+import bcrypt from "bcryptjs";
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        // Check if user already exists in the database
+        let user = await UserModel.findOne({ email: profile._json.email })
+          .select("-password")
+          .lean();
+        if (!user) {
+          const lastSixDigitsID = profile.id.substring(profile.id.length - 6);
+          const lastTwoDigitsName = profile._json.name.substring(
+            profile._json.name.length - 2
+          );
+          const newPass = lastTwoDigitsName + lastSixDigitsID;
+
+          const salt = await bcrypt.genSalt(Number(process.env.SALT));
+          const hashedPassword = await bcrypt.hash(newPass, salt);
+          const newUser = await UserModel.create({
+            name: profile._json.name,
+            email: profile._json.email,
+            isVerified: true,
+            signupSource: "Google",
+            password: hashedPassword,
+          });
+          user = await newUser.toObject();
+          delete user.password;
+        }
+        const {
+          accessToken,
+          refreshToken,
+          refreshTokenExpiry,
+          accessTokenExpiry,
+        } = await generateTokens(user);
+        return done(null, {
+          ...user,
+          accessToken,
+          refreshToken,
+          refreshTokenExpiry,
+          accessTokenExpiry,
+        });
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);

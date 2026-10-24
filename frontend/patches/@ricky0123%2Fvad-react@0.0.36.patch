@@ -1,0 +1,32 @@
+diff --git a/dist/index.js b/dist/index.js
+index 5e03b673e52ca4881d9de7cc245989af7238791d..ba61f08039f18f92f6b58cf9281c6b0658b52493 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -127,10 +127,14 @@ function useMicVAD(options) {
+                     return;
+                 }
+                 setVAD(myvad);
+-                if (vadOptions.startOnLoad) {
+-                    await myvad.start();
+-                    setListening(true);
+-                }
++                // if (vadOptions.startOnLoad) {
++                //     await myvad.start();
++                //     setListening(true);
++                // }
++                const stream = await vadOptions.getStream();
++                stream.getAudioTracks().forEach(track => {
++                    track.enabled = false;
++                  });
+                 setLoading(false);
+             }
+             catch (e) {
+@@ -155,7 +159,7 @@ function useMicVAD(options) {
+                 setListening(false);
+             }
+         };
+-    }, [getStreamKey, model]); // Recreate when getStream changes or model changes
++    }, [getStreamKey, model, vadOptions.redemptionMs]); // Recreate when getStream changes or model changes
+     const pause = (0, react_1.useCallback)(async () => {
+         if (!loading && !errored) {
+             await vad?.pause();

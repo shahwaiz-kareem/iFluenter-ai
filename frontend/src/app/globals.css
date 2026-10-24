@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 224 71% 4%;
+
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --secondary: 220 14% 90%;
+    --secondary-foreground: 224 71% 4%;
+
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 8% 46%;
+
+    --accent: 243 75% 96%;
+    --accent-foreground: 243 75% 59%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 243 75% 59%;
+
+    /* Chart Palette - Vibrant and Modern */
+    --chart-1: 243 75% 59%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 162 60% 50%;
+    --chart-4: 270 70% 60%;
+    --chart-5: 330 80% 60%;
+
+    /* Sidebar - Light Editorial Look */
+    --sidebar-background: 210 20% 96%;
+    --sidebar-foreground: 224 71% 10%;
+    --sidebar-primary: 243 75% 59%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 243 75% 92%;
+    --sidebar-accent-foreground: 243 75% 59%;
+    --sidebar-border: 220 13% 88%;
+    --sidebar-ring: 243 75% 59%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* "Deep Ink" Background - More premium than pure black */
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71% 6%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Vibrant Indigo for Dark Mode */
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 28% 12%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 28% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 215 28% 15%;
+    --accent-foreground: 245 82% 67%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 245 82% 67%;
+
+    /* Chart Palette Dark */
+    --chart-1: 245 82% 67%;
+    --chart-2: 199 89% 58%;
+    --chart-3: 162 60% 60%;
+    --chart-4: 270 70% 70%;
+    --chart-5: 330 80% 70%;
+
+    /* Sidebar - Deep Contrast Look */
+    --sidebar-background: 224 71% 2%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 245 82% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 28% 12%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 28% 17%;
+    --sidebar-ring: 245 82% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Clean, modern tech font stack */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+[data-state="open"] {
+  transition-timing-function: cubic-bezier(0.32, 0.72, 0.4, 0.98) !important;
+}
+
+.canvas-transition {
+  transition-property: width, height;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.32, 0.72, 0.4, 0.98);
+}
+
+@layer utilities {
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+body::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+body::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full hover:bg-primary/40 transition-colors;
+}
+
+.glass-panel {
+  @apply bg-background/60 backdrop-blur-md border border-white/10;
+}
+
+@supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+  .backdrop-blur-16 {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    /* overflow: hidden !important; */
+  }
+
+  ::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+  }
+}
+
+body {
+  scroll-behavior: smooth !important;
+}
